@@ -68,7 +68,7 @@ const Cart = () => {
 
   const placeOrder = async () => {
     try {
-      await fetch("https://surya-mern-ecommerce.onrender.com/create-order", {
+      await fetch("http://localhost:8000/create-order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
