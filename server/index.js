@@ -6,6 +6,7 @@ import Router from './routes/rout.js';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import { v4 as uuid } from 'uuid';
+import path from "path";
 
 const app = express();
 
@@ -14,7 +15,7 @@ dotenv.config();
 app.use(cors());
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/', Router);
+app.use('/api', Router);
 
 const PORT = 8000;
 
@@ -25,6 +26,14 @@ app.listen(PORT, () => console.log(`✅ Server is running Successfully on PORT $
 
 // Insert Default Data
 DefaultData();
+
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
 
 // ✅ Paytm Setup
 export let paytmMerchantKey = process.env.PAYTM_MERCHANT_KEY;
