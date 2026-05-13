@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions/cartActions";
 import { useState } from "react";
 import { payUsingPaytm } from "../../service/api";
-import { post } from "../../utils/paytm";
+// import { post } from "../../utils/paytm";
 
 const LeftContainer = styled(Box)(({ theme }) => ({
   minWidth: "40%",
