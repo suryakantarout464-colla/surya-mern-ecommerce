@@ -1,5 +1,5 @@
-import paytmchecksum from '../paytm/PaytmChecksum.js';
-import { paytmMerchantKey, paytmParams } from '../index.js';
+// import paytmchecksum from '../paytm/PaytmChecksum.js';
+// import { paytmMerchantKey, paytmParams } from '../index.js';
 
 export const addPaymentGateway = async (req, res) => {
   try {
