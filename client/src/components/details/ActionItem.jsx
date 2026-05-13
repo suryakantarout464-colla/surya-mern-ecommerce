@@ -46,14 +46,14 @@ const ActionItem = ({ product }) => {
     navigate("/cart");
   };
 
-  const buyNow = async () => {
-  let response =await payUsingPaytm({amount:500, email : 'codeforinterview01@ReportGmailerrorred.com'})
-  let information = {
-    action:'https://securegw.paytm.in/order/process',
-    params: response
-  }
-  post(information);
-  }
+  // const buyNow = async () => {
+  // let response =await payUsingPaytm({amount:500, email : 'codeforinterview01@ReportGmailerrorred.com'})
+  // let information = {
+  //   action:'https://securegw.paytm.in/order/process',
+  //   params: response
+  // }
+  // post(information);
+  // }
 
   return (
     <LeftContainer>
@@ -78,10 +78,7 @@ const ActionItem = ({ product }) => {
       </StyleButton>
   <StyleButton
   variant="contained"
-  onClick={() => window.open(
-    "https://www.sandbox.paypal.com/checkoutweb/signup?ssrt=1756708191237&flowlogging_id=f899065160056&token=8SV35018XF528280C&useraction=commit&flowType=WPS&rcache=1&country.x=IN&locale.x=en_GB&locale.x=en_IN&country.x=IN", 
-    "_blank" // new tab me open hoga
-  )}
+  onClick={() => alert("Order placed successfully")}
   style={{ background: "#fb541b" }}
 >
   <Flash /> Buy Now
