@@ -13,11 +13,13 @@ const Component = styled(Box)`
   background: #F2F2F2;
 `;
 
-const chunkArray = (arr, size) => {
+const chunkArray = (arr = [], size) => {
   const chunks = [];
+
   for (let i = 0; i < arr.length; i += size) {
     chunks.push(arr.slice(i, i + size));
   }
+
   return chunks;
 };
 
