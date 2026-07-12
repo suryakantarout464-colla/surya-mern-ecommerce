@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as actionTypes from '../constants/cartConstant'
 
-const URL = 'http://localhost:8000';
+const URL = 'https://surya-mern-ecommerce.onrender.com/api';
 
 
 export const addToCart = (id, quantity) => async(dispatch)=> {
