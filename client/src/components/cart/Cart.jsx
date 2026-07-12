@@ -68,7 +68,7 @@ const Cart = () => {
 
   const placeOrder = async () => {
     try {
-      await fetch("http://localhost:8000/create-order", {
+     await fetch("https://surya-mern-ecommerce.onrender.com/api/create-order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const Cart = () => {
             (total, item) => total + item.price.cost * item.quantity,
             0
           ),
-          paymentMethod: "paypal",
+          paymentMethod: "COD",
         }),
       });
 
