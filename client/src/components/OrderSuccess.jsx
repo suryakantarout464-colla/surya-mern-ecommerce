@@ -1,32 +1,49 @@
-import { Box, Button, Typography } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Typography,
+  Button
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const OrderSuccess = () => {
+const OrderSuccess = ({ open, handleClose }) => {
   const navigate = useNavigate();
 
+  const continueShopping = () => {
+    handleClose();
+    navigate("/");
+  };
+
   return (
-    <Box
-      style={{
-        textAlign: "center",
-        marginTop: "100px",
-      }}
-    >
-      <Typography variant="h4" style={{ color: "green", marginBottom: 20 }}>
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle style={{ textAlign: "center", color: "green" }}>
         🎉 Order Placed Successfully!
-      </Typography>
+      </DialogTitle>
 
-      <Typography variant="body1" style={{ marginBottom: 20 }}>
-        Thank you for shopping with us 😊
-      </Typography>
+      <DialogContent>
+        <Typography align="center">
+          Thank you for shopping with us 😊
+        </Typography>
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => navigate("/")}
-      >
-        Continue Shopping
-      </Button>
-    </Box>
+        <Typography
+          align="center"
+          style={{ marginTop: 10, color: "#555" }}
+        >
+          Your order has been received and will be processed shortly.
+        </Typography>
+      </DialogContent>
+
+      <DialogActions style={{ justifyContent: "center", paddingBottom: 20 }}>
+        <Button
+          variant="contained"
+          onClick={continueShopping}
+        >
+          Continue Shopping
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
