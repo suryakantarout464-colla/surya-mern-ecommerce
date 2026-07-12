@@ -1,9 +1,19 @@
-import { Typography, Box, styled, Button } from "@mui/material";
+import {
+  Typography,
+  Box,
+  styled,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@mui/material";
 import { useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import TotalView from "./TotalView";
 import EmptyCart from "./EmptyCart";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Container = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -65,10 +75,13 @@ const StyledButton = styled(Button)(({ theme }) => ({
 const Cart = () => {
   const navigate = useNavigate();   
   const { cartItems } = useSelector((state) => state.cart);
+const [open, setOpen] = useState(false);
 
-  const placeOrder = async () => {
-    try {
-     await fetch("https://surya-mern-ecommerce.onrender.com/api/create-order", {
+ const placeOrder = async () => {
+  try {
+    const response = await fetch(
+      "https://surya-mern-ecommerce.onrender.com/api/create-order",
+      {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -82,14 +95,20 @@ const Cart = () => {
           ),
           paymentMethod: "COD",
         }),
-      });
+      }
+    );
 
-      navigate("/order-success");
-
-    } catch (error) {
-      console.log("Order error:", error);
+    if (response.ok) {
+      setOpen(false);
+      navigate("/");
+    } else {
+      alert("Order Failed");
     }
-  };
+  } catch (error) {
+    console.log(error);
+    alert("Something went wrong");
+  }
+};
 
   return cartItems.length ? (
     <Container>
@@ -105,7 +124,7 @@ const Cart = () => {
         <ButtonWrapper>
           <StyledButton
             variant="contained"
-            onClick={placeOrder}   // ✅ yaha change
+             onClick={() => setOpen(true)} // ✅ yaha change
           >
             Place Order
           </StyledButton>
@@ -115,6 +134,43 @@ const Cart = () => {
       <Right>
         <TotalView cartItems={cartItems} />
       </Right>
+
+<Dialog open={open} onClose={() => setOpen(false)}>
+  <DialogTitle>Confirm Order</DialogTitle>
+
+  <DialogContent>
+    <Typography>
+      Total Items: {cartItems.length}
+    </Typography>
+
+    <Typography>
+      Total Amount: ₹
+      {cartItems.reduce(
+        (total, item) => total + item.price.cost * item.quantity,
+        0
+      )}
+    </Typography>
+
+    <Typography>
+      Payment Method: Cash on Delivery
+    </Typography>
+  </DialogContent>
+
+  <DialogActions>
+    <Button onClick={() => setOpen(false)}>
+      Cancel
+    </Button>
+
+    <Button
+      variant="contained"
+      color="success"
+      onClick={placeOrder}
+    >
+      Confirm Order
+    </Button>
+  </DialogActions>
+</Dialog>
+      
     </Container>
   ) : (
     <EmptyCart />
